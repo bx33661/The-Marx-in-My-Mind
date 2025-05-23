@@ -12,8 +12,12 @@ module.exports = {
         'marx-gray': '#333333',
       },
       fontFamily: {
-        'sans': ['Inter', 'system-ui', 'sans-serif'],
-        'serif': ['Georgia', 'serif'],
+        'sans': ['Montserrat', 'Noto Sans SC', 'system-ui', 'sans-serif'],
+        'serif': ['Playfair Display', 'ZCOOL XiaoWei', 'Georgia', 'serif'],
+        'display': ['Bebas Neue', 'ZCOOL XiaoWei', 'sans-serif'],
+        'chinese': ['ZCOOL XiaoWei', 'Ma Shan Zheng', 'serif'],
+        'elegant': ['Crimson Text', 'Noto Sans SC', 'serif'],
+        'mono': ['source-code-pro', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
       }
     },
   },

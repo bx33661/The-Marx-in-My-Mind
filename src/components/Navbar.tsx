@@ -29,8 +29,8 @@ const Navbar: React.FC = () => {
             transition={{ duration: 0.5 }}
           >
             <Link to="/" className="flex items-center">
-              <span className="text-marx-red text-2xl font-bold">马克思</span>
-              <span className="text-white text-2xl font-light ml-1">网站</span>
+              <span className="text-marx-red text-2xl font-chinese font-bold">马克思</span>
+              <span className="text-white text-2xl font-display ml-2 tracking-wider">MARX</span>
             </Link>
           </motion.div>
 
@@ -45,7 +45,7 @@ const Navbar: React.FC = () => {
                 >
                   <Link
                     to={item.path}
-                    className={`px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 ${
+                    className={`px-3 py-2 rounded-md text-sm font-medium tracking-wide transition-all duration-300 ${
                       isActive(item.path)
                         ? 'bg-marx-red text-white'
                         : 'text-gray-300 hover:bg-marx-gray hover:text-white'
@@ -85,7 +85,7 @@ const Navbar: React.FC = () => {
               key={item.path}
               to={item.path}
               onClick={() => setIsOpen(false)}
-              className={`block px-3 py-2 rounded-md text-base font-medium transition-all duration-300 ${
+              className={`block px-3 py-2 rounded-md text-base font-medium tracking-wide transition-all duration-300 ${
                 isActive(item.path)
                   ? 'bg-marx-red text-white'
                   : 'text-gray-300 hover:bg-marx-gray hover:text-white'

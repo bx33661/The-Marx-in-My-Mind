@@ -2,16 +2,58 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+/* 引入更多样化的字体 */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Crimson+Text:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;700;900&family=ZCOOL+XiaoWei&family=Ma+Shan+Zheng&family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700;800&display=swap');
 
+/* 全局字体设置 */
 body {
   margin: 0;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: 'Montserrat', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #f5f5f5;
+  letter-spacing: 0.02em;
+}
+
+/* 标题字体 */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Playfair Display', 'ZCOOL XiaoWei', serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* 特殊中文标题字体 */
+.chinese-title {
+  font-family: 'ZCOOL XiaoWei', 'Ma Shan Zheng', serif;
+}
+
+/* 引言和名言字体 */
+blockquote {
+  font-family: 'Crimson Text', 'Noto Sans SC', serif;
+  font-style: italic;
+  letter-spacing: 0.03em;
+}
+
+/* 强调文字 */
+.emphasis-text {
+  font-family: 'Bebas Neue', 'ZCOOL XiaoWei', sans-serif;
+  letter-spacing: 0.05em;
+}
+
+/* 导航字体 */
+nav {
+  font-family: 'Montserrat', 'Noto Sans SC', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}
+
+/* 按钮字体 */
+button, .btn {
+  font-family: 'Montserrat', 'Noto Sans SC', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.05em;
 }
 
 code {
@@ -35,4 +77,102 @@ code {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #B91C3C;
+}
+
+/* 网格背景图案 */
+.bg-grid-pattern {
+  background-image: 
+    linear-gradient(rgba(220, 20, 60, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(220, 20, 60, 0.1) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+/* 动画效果 */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* 渐变文字效果 */
+.gradient-text {
+  background: linear-gradient(45deg, #DC143C, #FFD700);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* 光晕效果 */
+.glow {
+  box-shadow: 0 0 20px rgba(220, 20, 60, 0.5);
+}
+
+/* 页面过渡效果 */
+.page-transition-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.page-transition-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.page-transition-exit {
+  opacity: 1;
+}
+
+.page-transition-exit-active {
+  opacity: 0;
+  transition: opacity 300ms;
+}
+
+/* 卡片悬停效果 */
+.card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover:hover {
+  transform: translateY(-4px) scale(1.02);
+}
+
+/* 星星动画 */
+@keyframes sparkle {
+  0% {
+    opacity: 0;
+    transform: scale(0) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1) rotate(180deg);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0) rotate(360deg);
+  }
+}
+
+.sparkle {
+  animation: sparkle 2s ease-in-out infinite;
+}
+
+/* 大标题特殊样式 */
+.hero-title {
+  font-family: 'Playfair Display', 'ZCOOL XiaoWei', serif;
+  font-weight: 900;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+/* 优雅的正文字体 */
+.elegant-text {
+  font-family: 'Crimson Text', 'Noto Sans SC', serif;
+  line-height: 1.8;
 }
