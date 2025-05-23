@@ -23,7 +23,7 @@ const AboutUs: React.FC = () => {
       color: 'from-blue-500 to-blue-600'
     },
     {
-      name: 'iam0rang',
+      name: 'iam0range',
       role: '海南大学网络空间安全学院',
       avatar: '👨‍🎨',
       description: '在校学生，用技术创造有意义的作品，用文字传播心中所爱',

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { ThemeProvider } from './contexts/ThemeContext';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
@@ -7,31 +7,26 @@ import Gallery from './pages/Gallery';
 import AboutMarx from './pages/AboutMarx';
 import Quotes from './pages/Quotes';
 import Ideas from './pages/Ideas';
-import Engage from './pages/Engage';
 import AboutUs from './pages/AboutUs';
 import Footer from './components/Footer';
-import LoadingScreen from './components/LoadingScreen';
 import BackgroundPattern from './components/BackgroundPattern';
 
-function App() {
-  const [loading, setLoading] = useState(true);
-
+// 调试组件，用于查看当前路由
+function RouteDebugger() {
+  const location = useLocation();
+  
   useEffect(() => {
-    // 模拟加载时间
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 2000);
+    console.log('Current pathname:', location.pathname);
+  }, [location]);
+  
+  return null;
+}
 
-    return () => clearTimeout(timer);
-  }, []);
-
-  if (loading) {
-    return <LoadingScreen />;
-  }
-
+function App() {
   return (
     <ThemeProvider>
       <Router>
+        <RouteDebugger />
         <div className="min-h-screen flex flex-col relative bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
           <BackgroundPattern />
           <Navbar />
@@ -42,8 +37,8 @@ function App() {
               <Route path="/about" element={<AboutMarx />} />
               <Route path="/quotes" element={<Quotes />} />
               <Route path="/ideas" element={<Ideas />} />
-              <Route path="/engage" element={<Engage />} />
               <Route path="/about-us" element={<AboutUs />} />
+              <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </main>
           <Footer />
