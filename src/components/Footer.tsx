@@ -9,7 +9,7 @@ const Footer: React.FC = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4">关于本站</h3>
             <p className="text-gray-400 text-sm">
-              弘扬马克思主义思想，展示马克思形象艺术，推动思想教育与大众传播。
+              我们的目标是：弘扬马克思主义思想，展示马克思形象艺术，推动思想教育与大众传播。作为一个海南大学的学生，我们希望用我们的方式，来展示我们心中的马克思。
             </p>
           </div>
           
@@ -25,15 +25,15 @@ const Footer: React.FC = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4">联系我们</h3>
             <p className="text-gray-400 text-sm">
-              邮箱：contact@marxwebsite.com<br />
-              地址：思想之光，时代之魂
+              邮箱：bx33661@qq.com<br />
+              地址：海南大学（海甸校区）----淳明书院
             </p>
           </div>
         </div>
         
         <div className="mt-8 pt-8 border-t border-gray-700 text-center">
           <p className="text-gray-400 text-sm flex items-center justify-center">
-            用 <HeartIcon className="h-4 w-4 text-marx-red mx-1" /> 制作 | &copy; 2024 马克思网站
+            用 <HeartIcon className="h-4 w-4 text-marx-red mx-1" /> 制作 | &copy; 2025 我心中的马克思（The-Marx-in-My-Mind）
           </p>
         </div>
       </div>

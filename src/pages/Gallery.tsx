@@ -20,7 +20,7 @@ const Gallery: React.FC = () => {
       title: '经典肖像',
       style: 'classical',
       description: '展现马克思深邃思想的经典油画风格肖像',
-      imageUrl: 'https://via.placeholder.com/400x500/8B0000/FFFFFF?text=Marx+Classical'
+      imageUrl: 'marx-website/public/png/youhua.png'
     },
     {
       id: 2,
