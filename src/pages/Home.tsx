@@ -49,6 +49,13 @@ const Home: React.FC = () => {
       description: '分享您心中的马克思',
       link: '/engage',
       color: 'from-blue-500 to-blue-700'
+    },
+    {
+      icon: UsersIcon,
+      title: '加入我们',
+      description: '做难而正确的事',
+      //link: '/join',
+      color: 'from-blue-500 to-blue-700'
     }
   ];
 
@@ -180,8 +187,13 @@ const Home: React.FC = () => {
             <SparklesIcon className="h-12 w-12 text-marx-red mx-auto mb-4" />
             <h2 className="text-4xl font-serif font-bold text-gray-800 mb-4">欢迎来到马克思网站</h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto font-elegant leading-relaxed">
-              这里是一个现代化的平台，旨在以创新的方式呈现马克思主义思想，
-              让更多年轻人了解、理解并传承这一伟大的思想遗产。
+              我们是海南大学的学生，
+              我们热爱马克思，
+              我们希望用我们的方式，
+              来展示我们心中的马克思。
+              如果可以，
+              我们希望您也可以加入我们，
+              一起来展示我们心中的马克思。
             </p>
           </motion.div>
 
@@ -196,8 +208,28 @@ const Home: React.FC = () => {
                 viewport={{ once: true }}
                 whileHover={{ y: -10 }}
               >
-                <Link to={feature.link}>
-                  <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 group">
+                {feature.link ? (
+                  <Link to={feature.link}>
+                    <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 group">
+                      <div className={`h-3 bg-gradient-to-r ${feature.color}`}></div>
+                      <div className="p-8">
+                        <div className="relative">
+                          <feature.icon className="h-16 w-16 text-marx-red mb-6 group-hover:scale-110 transition-transform duration-300" />
+                          <motion.div
+                            className="absolute -top-2 -right-2 w-8 h-8 bg-marx-gold rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                            whileHover={{ scale: 1.2 }}
+                          />
+                        </div>
+                        <h3 className="text-2xl font-serif font-semibold mb-3">{feature.title}</h3>
+                        <p className="text-gray-600 mb-4 font-elegant">{feature.description}</p>
+                        <span className="text-marx-red font-semibold tracking-wide group-hover:underline">
+                          探索更多 →
+                        </span>
+                      </div>
+                    </div>
+                  </Link>
+                ) : (
+                  <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 group cursor-not-allowed opacity-75">
                     <div className={`h-3 bg-gradient-to-r ${feature.color}`}></div>
                     <div className="p-8">
                       <div className="relative">
@@ -209,12 +241,12 @@ const Home: React.FC = () => {
                       </div>
                       <h3 className="text-2xl font-serif font-semibold mb-3">{feature.title}</h3>
                       <p className="text-gray-600 mb-4 font-elegant">{feature.description}</p>
-                      <span className="text-marx-red font-semibold tracking-wide group-hover:underline">
-                        探索更多 →
+                      <span className="text-gray-400 font-semibold tracking-wide">
+                        在一起！
                       </span>
                     </div>
                   </div>
-                </Link>
+                )}
               </motion.div>
             ))}
           </div>

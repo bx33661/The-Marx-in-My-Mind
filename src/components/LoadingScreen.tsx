@@ -22,7 +22,7 @@ const LoadingScreen: React.FC = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
           >
-            <span className="text-marx-red text-2xl font-bold">马</span>
+            <span className="text-marx-red text-2xl font-bold">Marx</span>
           </motion.div>
         </div>
         <motion.p

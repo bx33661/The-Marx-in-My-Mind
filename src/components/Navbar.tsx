@@ -29,8 +29,8 @@ const Navbar: React.FC = () => {
             transition={{ duration: 0.5 }}
           >
             <Link to="/" className="flex items-center">
-              <span className="text-marx-red text-2xl font-chinese font-bold">马克思</span>
-              <span className="text-white text-2xl font-display ml-2 tracking-wider">MARX</span>
+              <span className="text-marx-red text-2xl font-chinese font-bold">我心中的</span>
+              <span className="text-white text-2xl font-display ml-2 tracking-wider">Marx</span>
             </Link>
           </motion.div>
 

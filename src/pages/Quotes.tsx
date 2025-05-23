@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { HeartIcon, ShareIcon, LanguageIcon, SparklesIcon } from '@heroicons/react/24/outline';
+import { HeartIcon, ShareIcon, LanguageIcon, SparklesIcon, ClipboardIcon } from '@heroicons/react/24/outline';
 import { HeartIcon as HeartIconSolid } from '@heroicons/react/24/solid';
 
 interface Quote {
@@ -16,6 +16,7 @@ const Quotes: React.FC = () => {
   const [favorites, setFavorites] = useState<number[]>([]);
   const [showEnglish, setShowEnglish] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [showCopyToast, setShowCopyToast] = useState(false);
 
   const quotes: Quote[] = [
     {
@@ -113,8 +114,158 @@ const Quotes: React.FC = () => {
       source: '政治经济学批判大纲',
       category: 'economics',
       year: '1857'
+    },
+    {
+      id: 13,
+      text: '没有需要，就没有生产。',
+      textEn: 'Without need, there is no production.',
+      source: '政治经济学批判',
+      category: 'economics',
+      year: '1859'
+    },
+    {
+      id: 14,
+      text: '暴力是每一个孕育着新社会的旧社会的助产婆。',
+      textEn: 'Force is the midwife of every old society pregnant with a new one.',
+      source: '资本论',
+      category: 'revolution',
+      year: '1867'
+    },
+    {
+      id: 15,
+      text: '人们自己创造自己的历史，但是他们并不是随心所欲地创造。',
+      textEn: 'Men make their own history, but they do not make it as they please.',
+      source: '路易·波拿巴的雾月十八日',
+      category: 'history',
+      year: '1852'
+    },
+    {
+      id: 16,
+      text: '存在决定意识。',
+      textEn: 'Being determines consciousness.',
+      source: '德意志意识形态',
+      category: 'philosophy',
+      year: '1845'
+    },
+    {
+      id: 17,
+      text: '理论只要彻底，就能说服人。',
+      textEn: 'Theory becomes convincing when it is radical.',
+      source: '黑格尔法哲学批判导言',
+      category: 'philosophy',
+      year: '1844'
+    },
+    {
+      id: 18,
+      text: '劳动创造了人本身。',
+      textEn: 'Labor created man himself.',
+      source: '自然辩证法',
+      category: 'science',
+      year: '1876'
+    },
+    {
+      id: 19,
+      text: '一步实际运动比一打纲领更重要。',
+      textEn: 'One step of real movement is worth more than a dozen programmes.',
+      source: '哥达纲领批判',
+      category: 'revolution',
+      year: '1875'
+    },
+    {
+      id: 20,
+      text: '在我看来，真正的爱情是表现在恋人对他的偶像采取含蓄、谦恭甚至羞涩的态度，而决不是表现在随意流露热情和过早的亲昵。',
+      textEn: 'In my opinion, true love is expressed in restraint, modesty and even shyness toward the loved one, and not in casual displays of passion and premature intimacy.',
+      source: '给女儿的信',
+      category: 'life',
+      year: '1866'
+    },
+    {
+      id: 21,
+      text: '最强大的一种生产力是革命阶级本身。',
+      textEn: 'The greatest productive force is the revolutionary class itself.',
+      source: '哲学的贫困',
+      category: 'revolution',
+      year: '1847'
+    },
+    {
+      id: 22,
+      text: '生产劳动和教育的早期结合是改造现代社会的最强有力的手段之一。',
+      textEn: 'The early combination of productive labor with education is one of the most potent means for the transformation of present-day society.',
+      source: '资本论',
+      category: 'science',
+      year: '1867'
+    },
+    {
+      id: 23,
+      text: '任何一个民族，如果停止劳动，不用说一年，就是几个星期，也要灭亡。',
+      textEn: 'Any nation that stops working, not for a year, but even for a few weeks, would perish.',
+      source: '给库格曼的信',
+      category: 'economics',
+      year: '1868'
+    },
+    {
+      id: 24,
+      text: '历史的活动和思想就是"群众"的思想和活动。',
+      textEn: 'The activity and thought of history is the thought and activity of the masses.',
+      source: '神圣家族',
+      category: 'history',
+      year: '1845'
+    },
+    {
+      id: 25,
+      text: '理论在一个国家实现的程度，总是取决于理论满足这个国家的需要的程度。',
+      textEn: 'The degree to which a theory is realized in a country depends on the degree to which the theory meets the needs of that country.',
+      source: '黑格尔法哲学批判导言',
+      category: 'philosophy',
+      year: '1844'
+    },
+    {
+      id: 26,
+      text: '思想根本不能实现什么东西。为了实现思想，就要有使用实践力量的人。',
+      textEn: 'Ideas cannot accomplish anything at all. In order to carry out ideas men are needed who can exert practical force.',
+      source: '神圣家族',
+      category: 'philosophy',
+      year: '1845'
+    },
+    {
+      id: 27,
+      text: '社会生活在本质上是实践的。',
+      textEn: 'Social life is essentially practical.',
+      source: '关于费尔巴哈的提纲',
+      category: 'philosophy',
+      year: '1845'
+    },
+    {
+      id: 28,
+      text: '人只有为同时代人的完美、为他们的幸福而工作，自己才能达到完美。',
+      textEn: 'Man can achieve perfection only by working for the perfection and happiness of his contemporaries.',
+      source: '青年在选择职业时的考虑',
+      category: 'life',
+      year: '1835'
+    },
+    {
+      id: 29,
+      text: '无产阶级在这个革命中失去的只是锁链，他们获得的将是整个世界。',
+      textEn: 'The proletarians have nothing to lose but their chains. They have a world to win.',
+      source: '共产党宣言',
+      category: 'revolution',
+      year: '1848'
+    },
+    {
+      id: 30,
+      text: '资本是死劳动，它像吸血鬼一样，只有吮吸活劳动才有生命。',
+      textEn: 'Capital is dead labor, which, vampire-like, lives only by sucking living labor.',
+      source: '资本论',
+      category: 'economics',
+      year: '1867'
     }
   ];
+
+  // 随机选择一条名言作为今日推荐
+  const [featuredQuote] = useState<Quote>(() => {
+    const randomIndex = Math.floor(Math.random() * quotes.length);
+    return quotes[randomIndex];
+  });
 
   const categories = [
     { value: 'all', label: '全部', icon: '🌟' },
@@ -149,6 +300,13 @@ const Quotes: React.FC = () => {
       navigator.clipboard.writeText(`"${quote.text}" —— 卡尔·马克思《${quote.source}》`);
       alert('名言已复制到剪贴板！');
     }
+  };
+
+  const copyFeaturedQuote = () => {
+    const featuredQuoteText = `"${featuredQuote.text}" —— 卡尔·马克思《${featuredQuote.source}》`;
+    navigator.clipboard.writeText(featuredQuoteText);
+    setShowCopyToast(true);
+    setTimeout(() => setShowCopyToast(false), 2000);
   };
 
   return (
@@ -297,22 +455,53 @@ const Quotes: React.FC = () => {
             <div className="relative z-10">
               <h2 className="text-3xl font-bold mb-6 text-center">今日推荐</h2>
               <blockquote className="text-2xl md:text-3xl text-center italic mb-6 leading-relaxed">
-                "如果我们选择了最能为人类福利而劳动的职业，<br className="hidden md:block" />
-                那么，重担就不能把我们压倒，<br className="hidden md:block" />
-                因为这是为大家而献身。"
+                {showEnglish && featuredQuote.textEn ? featuredQuote.textEn : featuredQuote.text}
               </blockquote>
-              <cite className="block text-center text-lg">—— 《青年在选择职业时的考虑》</cite>
+              <cite className="block text-center text-lg">
+                —— 《{featuredQuote.source}》
+                {featuredQuote.year && ` (${featuredQuote.year})`}
+              </cite>
               
-              <div className="mt-8 text-center">
+              <div className="mt-8 text-center space-x-4">
                 <motion.button
+                  onClick={() => toggleFavorite(featuredQuote.id)}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="bg-white text-marx-red px-8 py-3 rounded-full font-medium hover:bg-gray-100 transition-colors inline-flex items-center gap-2"
                 >
-                  <HeartIcon className="h-5 w-5" />
+                  {favorites.includes(featuredQuote.id) ? (
+                    <HeartIconSolid className="h-5 w-5" />
+                  ) : (
+                    <HeartIcon className="h-5 w-5" />
+                  )}
                   收藏这句话
                 </motion.button>
+                <motion.button
+                  onClick={copyFeaturedQuote}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="bg-white/20 text-white px-8 py-3 rounded-full font-medium hover:bg-white/30 transition-colors inline-flex items-center gap-2 backdrop-blur-sm"
+                >
+                  <ClipboardIcon className="h-5 w-5" />
+                  复制名言
+                </motion.button>
               </div>
+              
+              {/* 复制成功提示 */}
+              <AnimatePresence>
+                {showCopyToast && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    className="mt-4 text-center"
+                  >
+                    <span className="bg-white/20 text-white px-4 py-2 rounded-full text-sm backdrop-blur-sm">
+                      ✓ 已复制到剪贴板
+                    </span>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </div>
         </motion.section>

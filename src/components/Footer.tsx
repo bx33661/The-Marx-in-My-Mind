@@ -26,7 +26,8 @@ const Footer: React.FC = () => {
             <h3 className="text-lg font-semibold mb-4">联系我们</h3>
             <p className="text-gray-400 text-sm">
               邮箱：bx33661@qq.com<br />
-              地址：海南大学（海甸校区）----淳明书院
+              地址：海南大学（海甸校区）----淳明书院<br />
+              参与者：Zhang,Xing,Chen
             </p>
           </div>
         </div>
