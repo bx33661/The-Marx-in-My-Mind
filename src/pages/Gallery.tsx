@@ -20,42 +20,42 @@ const Gallery: React.FC = () => {
       title: '经典肖像',
       style: 'classical',
       description: '展现马克思深邃思想的经典油画风格肖像',
-      imageUrl: 'marx-website/public/png/youhua.png'
+      imageUrl: '/png/1.png'
     },
     {
       id: 2,
       title: '现代艺术',
       style: 'modern',
       description: '运用现代艺术手法诠释马克思形象',
-      imageUrl: 'https://via.placeholder.com/400x500/FF6347/FFFFFF?text=Marx+Modern'
+      imageUrl: '/png/3.png'
     },
     {
       id: 3,
       title: '水墨风格',
       style: 'ink',
       description: '融合东方美学的水墨画马克思',
-      imageUrl: 'https://via.placeholder.com/400x500/2F4F4F/FFFFFF?text=Marx+Ink'
+      imageUrl: '/png/2.png'
     },
     {
       id: 4,
       title: '波普艺术',
       style: 'pop',
       description: '波普艺术风格的马克思形象',
-      imageUrl: 'https://via.placeholder.com/400x500/FF1493/FFFFFF?text=Marx+Pop'
+      imageUrl: '/png/4.png'
     },
     {
       id: 5,
       title: '数字艺术',
       style: 'digital',
       description: '数字化时代的马克思形象创作',
-      imageUrl: 'https://via.placeholder.com/400x500/4169E1/FFFFFF?text=Marx+Digital'
+      imageUrl: '/png/5.png'
     },
     {
       id: 6,
       title: '版画风格',
       style: 'print',
       description: '传统版画技法呈现的马克思',
-      imageUrl: 'https://via.placeholder.com/400x500/8B4513/FFFFFF?text=Marx+Print'
+      imageUrl: '/png/6.png'
     }
   ];
 
