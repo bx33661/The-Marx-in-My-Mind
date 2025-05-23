@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { HeartIcon, ShareIcon, LanguageIcon, SparklesIcon, ClipboardIcon } from '@heroicons/react/24/outline';
+import { HeartIcon, ShareIcon, LanguageIcon, SparklesIcon, ClipboardIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { HeartIcon as HeartIconSolid } from '@heroicons/react/24/solid';
 
 interface Quote {
@@ -13,10 +13,15 @@ interface Quote {
 }
 
 const Quotes: React.FC = () => {
-  const [favorites, setFavorites] = useState<number[]>([]);
+  // 从localStorage读取收藏的名言
+  const [favorites, setFavorites] = useState<number[]>(() => {
+    const saved = localStorage.getItem('marxQuoteFavorites');
+    return saved ? JSON.parse(saved) : [];
+  });
   const [showEnglish, setShowEnglish] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [showCopyToast, setShowCopyToast] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const quotes: Quote[] = [
     {
@@ -281,12 +286,26 @@ const Quotes: React.FC = () => {
     ? quotes 
     : quotes.filter(quote => quote.category === selectedCategory);
 
+  // 进一步根据搜索词过滤
+  const searchedQuotes = searchTerm
+    ? filteredQuotes.filter(quote => 
+        quote.text.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        quote.source.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (quote.textEn && quote.textEn.toLowerCase().includes(searchTerm.toLowerCase()))
+      )
+    : filteredQuotes;
+
   const toggleFavorite = (id: number) => {
-    setFavorites(prev => 
-      prev.includes(id) 
+    setFavorites(prev => {
+      const newFavorites = prev.includes(id) 
         ? prev.filter(fav => fav !== id)
-        : [...prev, id]
-    );
+        : [...prev, id];
+      
+      // 保存到localStorage
+      localStorage.setItem('marxQuoteFavorites', JSON.stringify(newFavorites));
+      
+      return newFavorites;
+    });
   };
 
   const shareQuote = (quote: Quote) => {
@@ -310,20 +329,20 @@ const Quotes: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white py-12">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 py-8 sm:py-12 transition-colors duration-300">
       <div className="container mx-auto px-4">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          className="text-center mb-8 sm:mb-12"
         >
           <div className="flex justify-center mb-4">
-            <SparklesIcon className="h-12 w-12 text-marx-gold" />
+            <SparklesIcon className="h-10 w-10 sm:h-12 sm:w-12 text-marx-gold" />
           </div>
-          <h1 className="text-5xl font-bold text-gray-800 mb-4">名言金句</h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <h1 className="text-3xl sm:text-5xl font-chinese-title font-bold text-gray-800 dark:text-gray-100 mb-4">名言金句</h1>
+          <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto px-4 font-chinese">
             精选马克思经典语录，每一句都蕴含着深刻的智慧与洞察
           </p>
         </motion.div>
@@ -333,60 +352,85 @@ const Quotes: React.FC = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
-          className="flex justify-center gap-8 mb-8"
+          className="flex justify-center gap-6 sm:gap-8 mb-6 sm:mb-8"
         >
           <div className="text-center">
-            <p className="text-3xl font-bold text-marx-red">{quotes.length}</p>
-            <p className="text-sm text-gray-600">条名言</p>
+            <p className="text-2xl sm:text-3xl font-bold text-marx-red">{quotes.length}</p>
+            <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">条名言</p>
           </div>
           <div className="text-center">
-            <p className="text-3xl font-bold text-marx-red">{favorites.length}</p>
-            <p className="text-sm text-gray-600">已收藏</p>
+            <p className="text-2xl sm:text-3xl font-bold text-marx-red">{favorites.length}</p>
+            <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">已收藏</p>
           </div>
         </motion.div>
 
         {/* Controls */}
-        <div className="flex flex-wrap justify-center items-center gap-4 mb-12">
-          <div className="flex flex-wrap gap-2 justify-center">
-            {categories.map((cat) => (
-              <motion.button
-                key={cat.value}
-                onClick={() => setSelectedCategory(cat.value)}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className={`px-6 py-3 rounded-full text-sm font-medium transition-all flex items-center gap-2 ${
-                  selectedCategory === cat.value
-                    ? 'bg-marx-red text-white shadow-lg'
-                    : 'bg-white text-gray-700 hover:bg-gray-100 shadow-md'
-                }`}
-              >
-                <span>{cat.icon}</span>
-                {cat.label}
-              </motion.button>
-            ))}
+        <div className="flex flex-col gap-4 mb-8 sm:mb-12">
+          {/* Search Bar */}
+          <div className="max-w-2xl mx-auto w-full">
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="搜索名言或出处..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full px-10 sm:px-12 py-3 sm:py-4 rounded-full border border-gray-300 dark:border-gray-600 focus:border-marx-red dark:focus:border-marx-red focus:outline-none shadow-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 text-sm sm:text-base transition-colors duration-300"
+              />
+              <MagnifyingGlassIcon className="absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 sm:h-6 sm:w-6 text-gray-400 dark:text-gray-500" />
+              {searchTerm && (
+                <button
+                  onClick={() => setSearchTerm('')}
+                  className="absolute right-3 sm:right-4 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300"
+                >
+                  ✕
+                </button>
+              )}
+            </div>
           </div>
-          <motion.button
-            onClick={() => setShowEnglish(!showEnglish)}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="flex items-center gap-2 px-6 py-3 bg-white rounded-full hover:bg-gray-100 transition-colors shadow-md"
-          >
-            <LanguageIcon className="h-5 w-5" />
-            {showEnglish ? '显示中文' : '显示英文'}
-          </motion.button>
+
+          {/* Category and Language Controls */}
+          <div className="flex flex-wrap justify-center items-center gap-2 sm:gap-4">
+            <div className="flex flex-wrap gap-2 justify-center">
+              {categories.map((cat) => (
+                <motion.button
+                  key={cat.value}
+                  onClick={() => setSelectedCategory(cat.value)}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className={`px-4 sm:px-6 py-2 sm:py-3 rounded-full text-xs sm:text-sm font-medium transition-all flex items-center gap-1 sm:gap-2 ${
+                    selectedCategory === cat.value
+                      ? 'bg-marx-red text-white shadow-lg'
+                      : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 shadow-md'
+                  }`}
+                >
+                  <span className="text-sm sm:text-base">{cat.icon}</span>
+                  <span className="font-chinese">{cat.label}</span>
+                </motion.button>
+              ))}
+            </div>
+            <motion.button
+              onClick={() => setShowEnglish(!showEnglish)}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="flex items-center gap-1 sm:gap-2 px-4 sm:px-6 py-2 sm:py-3 bg-white dark:bg-gray-800 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors shadow-md text-xs sm:text-sm"
+            >
+              <LanguageIcon className="h-4 w-4 sm:h-5 sm:w-5" />
+              {showEnglish ? '显示中文' : '显示英文'}
+            </motion.button>
+          </div>
         </div>
 
         {/* Quotes Grid with Animation */}
         <AnimatePresence mode="wait">
           <motion.div
-            key={selectedCategory}
+            key={selectedCategory + searchTerm}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
           >
-            {filteredQuotes.map((quote, index) => (
+            {searchedQuotes.map((quote, index) => (
               <motion.div
                 key={quote.id}
                 initial={{ opacity: 0, y: 20 }}
@@ -395,40 +439,40 @@ const Quotes: React.FC = () => {
                 whileHover={{ y: -5, transition: { duration: 0.2 } }}
                 className="group"
               >
-                <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 h-full flex flex-col">
+                <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 h-full flex flex-col">
                   <div className="h-1 bg-gradient-to-r from-marx-red to-red-700 group-hover:h-2 transition-all duration-300"></div>
-                  <div className="p-6 flex-grow flex flex-col">
-                    <blockquote className="text-lg font-medium text-gray-800 mb-4 flex-grow relative">
-                      <span className="absolute -top-2 -left-2 text-4xl text-marx-red opacity-20">"</span>
+                  <div className="p-4 sm:p-6 flex-grow flex flex-col">
+                    <blockquote className="text-base sm:text-lg font-chinese-elegant font-medium text-gray-800 dark:text-gray-200 mb-4 flex-grow relative">
+                      <span className="absolute -top-2 -left-2 text-3xl sm:text-4xl text-marx-red opacity-20 font-chinese-title">"</span>
                       {showEnglish && quote.textEn ? quote.textEn : quote.text}
-                      <span className="absolute -bottom-6 -right-2 text-4xl text-marx-red opacity-20">"</span>
+                      <span className="absolute -bottom-6 -right-2 text-3xl sm:text-4xl text-marx-red opacity-20 font-chinese-title">"</span>
                     </blockquote>
                     <div className="mt-auto">
-                      <cite className="text-sm text-gray-600 block mb-2">
+                      <cite className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 block mb-2 font-chinese">
                         —— 《{quote.source}》{quote.year && ` (${quote.year})`}
                       </cite>
-                      <div className="flex justify-between items-center pt-4 border-t border-gray-100">
+                      <div className="flex justify-between items-center pt-3 sm:pt-4 border-t border-gray-100 dark:border-gray-700">
                         <motion.button
                           onClick={() => toggleFavorite(quote.id)}
                           whileHover={{ scale: 1.1 }}
                           whileTap={{ scale: 0.9 }}
-                          className="flex items-center gap-2 text-gray-600 hover:text-marx-red transition-colors"
+                          className="flex items-center gap-1 sm:gap-2 text-gray-600 dark:text-gray-400 hover:text-marx-red dark:hover:text-marx-red transition-colors"
                         >
                           {favorites.includes(quote.id) ? (
-                            <HeartIconSolid className="h-5 w-5 text-marx-red" />
+                            <HeartIconSolid className="h-4 w-4 sm:h-5 sm:w-5 text-marx-red" />
                           ) : (
-                            <HeartIcon className="h-5 w-5" />
+                            <HeartIcon className="h-4 w-4 sm:h-5 sm:w-5" />
                           )}
-                          <span className="text-sm">收藏</span>
+                          <span className="text-xs sm:text-sm">收藏</span>
                         </motion.button>
                         <motion.button
                           onClick={() => shareQuote(quote)}
                           whileHover={{ scale: 1.1 }}
                           whileTap={{ scale: 0.9 }}
-                          className="flex items-center gap-2 text-gray-600 hover:text-marx-red transition-colors"
+                          className="flex items-center gap-1 sm:gap-2 text-gray-600 dark:text-gray-400 hover:text-marx-red dark:hover:text-marx-red transition-colors"
                         >
-                          <ShareIcon className="h-5 w-5" />
-                          <span className="text-sm">分享</span>
+                          <ShareIcon className="h-4 w-4 sm:h-5 sm:w-5" />
+                          <span className="text-xs sm:text-sm">分享</span>
                         </motion.button>
                       </div>
                     </div>
@@ -439,40 +483,60 @@ const Quotes: React.FC = () => {
           </motion.div>
         </AnimatePresence>
 
+        {/* No Results Message */}
+        {searchedQuotes.length === 0 && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-center py-8 sm:py-12"
+          >
+            <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-400 mb-4">没有找到相关的名言</p>
+            <button
+              onClick={() => {
+                setSearchTerm('');
+                setSelectedCategory('all');
+              }}
+              className="text-marx-red hover:underline text-sm sm:text-base"
+            >
+              清除筛选条件
+            </button>
+          </motion.div>
+        )}
+
         {/* Featured Quote Section */}
         <motion.section
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="mt-20"
+          className="mt-12 sm:mt-20"
         >
-          <div className="bg-gradient-to-br from-marx-red via-red-600 to-red-700 rounded-3xl p-12 text-white relative overflow-hidden">
+          <div className="bg-gradient-to-br from-marx-red via-red-600 to-red-700 rounded-2xl sm:rounded-3xl p-8 sm:p-12 text-white relative overflow-hidden">
             {/* Background decoration */}
-            <div className="absolute top-0 right-0 w-64 h-64 bg-white opacity-5 rounded-full -mr-32 -mt-32"></div>
-            <div className="absolute bottom-0 left-0 w-48 h-48 bg-white opacity-5 rounded-full -ml-24 -mb-24"></div>
+            <div className="absolute top-0 right-0 w-32 h-32 sm:w-64 sm:h-64 bg-white opacity-5 rounded-full -mr-16 -mt-16 sm:-mr-32 sm:-mt-32"></div>
+            <div className="absolute bottom-0 left-0 w-24 h-24 sm:w-48 sm:h-48 bg-white opacity-5 rounded-full -ml-12 -mb-12 sm:-ml-24 sm:-mb-24"></div>
             
             <div className="relative z-10">
-              <h2 className="text-3xl font-bold mb-6 text-center">今日推荐</h2>
-              <blockquote className="text-2xl md:text-3xl text-center italic mb-6 leading-relaxed">
+              <h2 className="text-2xl sm:text-3xl font-chinese-title font-bold mb-4 sm:mb-6 text-center">今日推荐</h2>
+              <blockquote className="text-xl sm:text-2xl md:text-3xl text-center italic mb-4 sm:mb-6 leading-relaxed px-4 font-chinese-elegant">
                 {showEnglish && featuredQuote.textEn ? featuredQuote.textEn : featuredQuote.text}
               </blockquote>
-              <cite className="block text-center text-lg">
+              <cite className="block text-center text-base sm:text-lg font-chinese">
                 —— 《{featuredQuote.source}》
                 {featuredQuote.year && ` (${featuredQuote.year})`}
               </cite>
               
-              <div className="mt-8 text-center space-x-4">
+              <div className="mt-6 sm:mt-8 text-center space-y-3 sm:space-y-0 sm:space-x-4">
                 <motion.button
                   onClick={() => toggleFavorite(featuredQuote.id)}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="bg-white text-marx-red px-8 py-3 rounded-full font-medium hover:bg-gray-100 transition-colors inline-flex items-center gap-2"
+                  className="bg-white text-marx-red px-6 sm:px-8 py-3 rounded-full font-medium hover:bg-gray-100 transition-colors inline-flex items-center gap-2 text-sm sm:text-base"
                 >
                   {favorites.includes(featuredQuote.id) ? (
-                    <HeartIconSolid className="h-5 w-5" />
+                    <HeartIconSolid className="h-4 w-4 sm:h-5 sm:w-5" />
                   ) : (
-                    <HeartIcon className="h-5 w-5" />
+                    <HeartIcon className="h-4 w-4 sm:h-5 sm:w-5" />
                   )}
                   收藏这句话
                 </motion.button>
@@ -480,9 +544,9 @@ const Quotes: React.FC = () => {
                   onClick={copyFeaturedQuote}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="bg-white/20 text-white px-8 py-3 rounded-full font-medium hover:bg-white/30 transition-colors inline-flex items-center gap-2 backdrop-blur-sm"
+                  className="bg-white/20 text-white px-6 sm:px-8 py-3 rounded-full font-medium hover:bg-white/30 transition-colors inline-flex items-center gap-2 backdrop-blur-sm text-sm sm:text-base"
                 >
-                  <ClipboardIcon className="h-5 w-5" />
+                  <ClipboardIcon className="h-4 w-4 sm:h-5 sm:w-5" />
                   复制名言
                 </motion.button>
               </div>
@@ -496,7 +560,7 @@ const Quotes: React.FC = () => {
                     exit={{ opacity: 0, y: 10 }}
                     className="mt-4 text-center"
                   >
-                    <span className="bg-white/20 text-white px-4 py-2 rounded-full text-sm backdrop-blur-sm">
+                    <span className="bg-white/20 text-white px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm backdrop-blur-sm">
                       ✓ 已复制到剪贴板
                     </span>
                   </motion.div>

@@ -3,22 +3,22 @@ module.exports = {
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
-        'marx-red': '#DC143C',
-        'marx-gold': '#FFD700',
+        'marx-red': '#cc0000',
+        'marx-gold': '#ffd700',
         'marx-dark': '#1a1a1a',
-        'marx-gray': '#333333',
+        'marx-gray': '#2d2d2d',
       },
       fontFamily: {
-        'sans': ['Montserrat', 'Noto Sans SC', 'system-ui', 'sans-serif'],
-        'serif': ['Playfair Display', 'ZCOOL XiaoWei', 'Georgia', 'serif'],
-        'display': ['Bebas Neue', 'ZCOOL XiaoWei', 'sans-serif'],
-        'chinese': ['ZCOOL XiaoWei', 'Ma Shan Zheng', 'serif'],
-        'elegant': ['Crimson Text', 'Noto Sans SC', 'serif'],
-        'mono': ['source-code-pro', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
-      }
+        'display': ['Bebas Neue', 'cursive'],
+        'body': ['Roboto', 'sans-serif'],
+        'chinese': ['Ma Shan Zheng', 'ZCOOL KuaiLe', 'Noto Serif SC', 'serif'],
+        'chinese-title': ['ZCOOL XiaoWei', 'Ma Shan Zheng', 'serif'],
+        'chinese-elegant': ['ZCOOL QingKe HuangYou', 'Noto Serif SC', 'serif'],
+      },
     },
   },
   plugins: [],

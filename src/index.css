@@ -176,3 +176,167 @@ code {
   font-family: 'Crimson Text', 'Noto Sans SC', serif;
   line-height: 1.8;
 }
+
+/* 字体优化 */
+@layer base {
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: theme('fontFamily.body');
+  }
+
+  /* 中文字体优化 */
+  .font-chinese {
+    font-family: 'Ma Shan Zheng', 'ZCOOL KuaiLe', 'Noto Serif SC', serif;
+    letter-spacing: 0.05em;
+  }
+
+  .font-chinese-title {
+    font-family: 'ZCOOL XiaoWei', 'Ma Shan Zheng', serif;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+  }
+
+  .font-chinese-elegant {
+    font-family: 'ZCOOL QingKe HuangYou', 'Noto Serif SC', serif;
+    letter-spacing: 0.08em;
+  }
+
+  /* 深色模式优化 */
+  .dark {
+    color-scheme: dark;
+  }
+
+  /* 滚动条样式 */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-gray-100 dark:bg-gray-800;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-marx-red rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-red-700;
+  }
+}
+
+/* 动画优化 */
+@layer components {
+  /* 页面加载动画 */
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* 卡片悬停效果 */
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-2xl hover:-translate-y-2;
+  }
+
+  /* 中文标题特效 */
+  .chinese-title-glow {
+    text-shadow: 0 0 20px rgba(204, 0, 0, 0.3);
+  }
+
+  /* 按钮涟漪效果 */
+  .btn-ripple {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-ripple::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+  }
+
+  .btn-ripple:active::before {
+    width: 300px;
+    height: 300px;
+  }
+}
+
+/* 响应式字体大小 */
+@layer utilities {
+  .text-responsive {
+    @apply text-base sm:text-lg md:text-xl lg:text-2xl;
+  }
+
+  .heading-responsive {
+    @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl;
+  }
+}
+
+/* 特殊效果 */
+.text-gradient {
+  background: linear-gradient(135deg, #cc0000 0%, #ffd700 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* 书法字体强调 */
+.calligraphy-emphasis {
+  @apply font-chinese-elegant text-marx-red;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* 深色模式过渡 */
+* {
+  @apply transition-colors duration-300;
+}
+
+/* 名言卡片特殊样式 */
+.quote-card {
+  position: relative;
+  background: linear-gradient(135deg, #ffffff 0%, #f9f9f9 100%);
+}
+
+.dark .quote-card {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+}
+
+/* 移动端触摸优化 */
+@media (hover: none) {
+  .hover\:scale-105:active {
+    transform: scale(1.05);
+  }
+  
+  .hover\:shadow-2xl:active {
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  }
+}
+
+/* 打印样式 */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    @apply text-black bg-white;
+  }
+}
