@@ -1,4 +1,4 @@
-# 马克思网站 - Marx Website
+# 马克思网站 - The Marx in My Mind
 
 <p align="center">
   <img src="https://img.shields.io/badge/React-19.1.0-blue" alt="React Version" />
@@ -11,7 +11,28 @@
   <strong>🌟 思想之光，时代之魂 🌟</strong>
 </p>
 
-一个现代化、美观的前端网站，旨在弘扬马克思主义思想，展示马克思形象艺术，推动思想教育与大众传播。
+<p align="center">
+  <em>我们旨在通过WEB网站的方式去表达和宣传我们心中的马克思！🙂</em>
+</p>
+
+## 💡 项目初衷
+
+本项目是为了完成大二下学期《马克思主义基本原理》课程的实践任务。我们希望通过这个项目，让马克思主义不再是书本上的文字，而是活生生的思想。我们相信，经典理论在新时代依然有着强大的生命力。
+
+> 感谢老师，让我们有机会去用心学习和了解马克思
+
+## 👥 创作团队
+
+我们是来自海南大学网络空间安全学院的三名学生：
+
+- **bpple** - 在校学生，尝试创造，热爱生活，热爱理想
+  - 负责：网站开发与技术实现，内容策划与理论研究
+
+- **unjoker** - 在校学生，喜欢研究创意，热爱不一样的事情
+  - 负责：网站开发与技术实现，活动策划与组织
+
+- **iam0rang** - 在校学生，用技术创造有意义的作品，用文字传播心中所爱
+  - 负责：视觉设计与交互体验，活动策划与组织
 
 ## 📸 预览
 
@@ -32,10 +53,11 @@
 ## 🌟 特性
 
 ### 设计特色
-- 🎨 **现代化设计** - 采用最新的设计趋势
-- 📱 **完全响应式** - 完美适配各种设备
+- 🎨 **现代化设计** - 采用最新的设计趋势，展现马克思主义的时代魅力
+- 📱 **完全响应式** - 完美适配各种设备，让思想随时随地传播
 - ✨ **流畅动画** - 使用 Framer Motion 实现优雅过渡
-- 🎭 **独特字体** - 中西结合的字体系统
+- 🌓 **深色模式** - 支持明暗主题切换，呵护您的双眼
+- 🎭 **中文书法字体** - 融合传统与现代的独特字体系统
 - 🌈 **主题配色** - 红色主题，庄重而不失活力
 
 ### 技术特点
@@ -53,10 +75,12 @@
 - **动画库**: Framer Motion
 - **图标库**: Heroicons
 - **字体方案**: 
-  - Playfair Display (标题)
-  - Montserrat (正文)
+  - Playfair Display (英文标题)
+  - Montserrat (英文正文)
+  - Ma Shan Zheng (毛笔书法风格)
   - ZCOOL XiaoWei (中文艺术字体)
-  - Crimson Text (引言)
+  - ZCOOL KuaiLe (活泼标题)
+  - ZCOOL QingKe HuangYou (优雅正文)
 
 ## 🚀 快速开始
 
@@ -97,14 +121,15 @@ marx-website/
 │   │   ├── Navbar.tsx    # 导航栏
 │   │   ├── Footer.tsx    # 页脚
 │   │   ├── LoadingScreen.tsx    # 加载动画
-│   │   └── BackgroundPattern.tsx # 背景装饰
+│   │   ├── BackgroundPattern.tsx # 背景装饰
+│   │   └── ThemeContext.tsx     # 主题管理
 │   ├── pages/            # 页面组件
 │   │   ├── Home.tsx      # 首页
 │   │   ├── Gallery.tsx   # 画廊页
 │   │   ├── AboutMarx.tsx # 人物介绍
 │   │   ├── Quotes.tsx    # 名言页
 │   │   ├── Ideas.tsx     # 思想页
-│   │   └── Engage.tsx    # 互动页
+│   │   └── AboutUs.tsx   # 关于我们
 │   ├── App.tsx           # 主应用组件
 │   ├── index.tsx         # 入口文件
 │   └── index.css         # 全局样式
@@ -123,11 +148,11 @@ marx-website/
 
 ### 字体系统
 ```css
-font-serif: 'Playfair Display', 'ZCOOL XiaoWei'
+font-serif: 'Playfair Display', 'Ma Shan Zheng'
 font-sans: 'Montserrat', 'Noto Sans SC'
-font-display: 'Bebas Neue', 'ZCOOL XiaoWei'
 font-chinese: 'ZCOOL XiaoWei', 'Ma Shan Zheng'
-font-elegant: 'Crimson Text', 'Noto Sans SC'
+font-chinese-title: 'Ma Shan Zheng', 'ZCOOL KuaiLe'
+font-chinese-elegant: 'ZCOOL QingKe HuangYou', 'Noto Sans SC'
 ```
 
 ## 📱 浏览器支持
@@ -170,13 +195,24 @@ netlify deploy --dir=build --prod
 4. 推送到分支 (`git push origin feature/AmazingFeature`)
 5. 开启 Pull Request
 
-## 📝 待办事项
+## 📝 已完成功能
+
+- [x] 响应式设计
+- [x] 深色模式支持
+- [x] 中文书法字体集成
+- [x] 30条精选马克思名言
+- [x] 随机推荐功能
+- [x] 复制分享功能
+- [x] 收藏功能
+- [x] 17个时间轴事件
+- [x] 10个思想理论板块
+
+## 🚧 待办事项
 
 - [ ] 添加真实的马克思画像资源
 - [ ] 实现后端 API 支持
 - [ ] 添加用户认证系统
 - [ ] 增加多语言支持（英语、俄语等）
-- [ ] 添加暗黑模式
 - [ ] 集成评论系统
 - [ ] 添加搜索功能
 - [ ] PWA 支持
@@ -209,31 +245,31 @@ REACT_APP_GA_ID=your-google-analytics-id
 
 本项目基于 MIT 许可证开源 - 查看 [LICENSE](LICENSE) 文件了解详情
 
-## 👥 团队
-
-- **设计**: 现代化 UI/UX 设计
-- **开发**: React + TypeScript 全栈开发
-- **内容**: 马克思主义理论研究
-
 ## 🙏 致谢
 
 - React 团队
 - Tailwind CSS 团队
 - 所有开源贡献者
 - 马克思主义研究学者
+- 海南大学《马克思主义基本原理》课程老师
 
 ## 📞 联系方式
 
 - 项目主页: [https://marx-website.vercel.app](https://marx-website.vercel.app)
-- 邮箱: contact@marxwebsite.com
+- 邮箱: bx33661@qq.com
+- 地址: 海南大学（海甸校区）淳明书院
 - Issues: [GitHub Issues](https://github.com/yourusername/marx-website/issues)
 
 ---
 
 <p align="center">
-  用 ❤️ 制作，致敬伟大的思想家卡尔·马克思
+  用 ❤️ 制作，向伟大的思想家卡尔·马克思致敬
 </p>
 
 <p align="center">
   <strong>"哲学家们只是用不同的方式解释世界，而问题在于改变世界。"</strong>
+</p>
+
+<p align="center">
+  <em>—— 卡尔·马克思</em>
 </p>
