@@ -272,7 +272,7 @@ REACT_APP_GA_ID=your-google-analytics-id
 
 - 项目主页: [https://marx-website.vercel.app](https://marx-website.vercel.app)
 - 邮箱: bx33661@qq.com
-- 地址: 海南大学（海甸校区）淳明书院
+- 地址: 海南大学（海甸校区）
 - Issues: [GitHub Issues](https://github.com/yourusername/marx-website/issues)
 
 ---
